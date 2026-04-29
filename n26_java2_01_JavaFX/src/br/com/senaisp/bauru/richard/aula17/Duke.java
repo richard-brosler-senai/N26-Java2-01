@@ -19,7 +19,7 @@ public class Duke extends Group {
 				.getResource("images/Duke.png").toString());
 		dukeImgVw = new ImageView(dukeImg);
 		dukeImgVw.setFitWidth(50); //definindo com 50 pixels
-		dukeImgVw.setPreserveRatio(true);
+		dukeImgVw.setPreserveRatio(true);//mantem proporção
 		dukeImgVw.setY(10);
 		//Carregando a luva
 		luvaImg = new Image(getClass()
