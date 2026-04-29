@@ -1,0 +1,10 @@
+package br.com.senaisp.bauru.richard.aula11;
+
+public class CalculadoraTeste {
+	public static void main(String[] args) {
+		Calculadora calc = new Calculadora();
+		System.out.println(calc.somar(1., 2.));
+		
+	}
+
+}
