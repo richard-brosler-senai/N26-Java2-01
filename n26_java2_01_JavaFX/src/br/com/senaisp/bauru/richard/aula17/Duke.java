@@ -28,6 +28,27 @@ public class Duke extends Group {
 		luvaImgVw.setFitWidth(40);
 		luvaImgVw.setPreserveRatio(true);
 		luvaImgVw.setX(17);
+		//Carregando o Audio
+		tom = new AudioClip(getClass()
+				.getResource("audios/Note5.wav").toString());
+		//Adicionando os componentes
+		getChildren().addAll(dukeImgVw,luvaImgVw);
+		//Criando eventos
+		criarEventos();
+	}
+	private void criarEventos() {
+		//quando o mouse for clicado no duke toca o som
+		setOnMouseClicked((ev)->{
+			tom.play();
+		});
+		//Criando o evento de arrastar o duke pela tela
+		setOnMouseDragged((ev)->{
+			double largura = this.getBoundsInLocal().getWidth()/2;
+			double altura = this.getBoundsInLocal().getHeight()/2;
+			//posicionar o item na scena
+			setLayoutX(ev.getSceneX()-largura);
+			setLayoutY(ev.getSceneY()-altura);
+		});
 	}
 	
 }
