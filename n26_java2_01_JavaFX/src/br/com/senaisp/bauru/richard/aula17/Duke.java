@@ -50,5 +50,7 @@ public class Duke extends Group {
 			setLayoutY(ev.getSceneY()-altura);
 		});
 	}
-	
+//Projeto no github
+//https://github.com/richard-brosler-senai/N26-Java2-01/tree
+//	                            /master/n26_java2_01_JavaFX/src	
 }
