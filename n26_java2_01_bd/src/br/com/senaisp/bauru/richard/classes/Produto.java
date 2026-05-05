@@ -56,6 +56,56 @@ public class Produto {
 	private void setId(int value) {
 		id = value;
 	}
+	
+	public void gravar() {
+		String sql;
+		PreparedStatement stmt;
+		try {
+			if (id>0) {
+				sql = "update produto set descricao=?,"
+					+ "preco=?, saldo=? where id=?";
+				stmt = bd.getConnection().prepareStatement(sql);
+			} else {
+				sql = "insert into produto(descricao,"
+						+ "preco,saldo) values (?,?,?)";
+				stmt = bd.getConnection().prepareStatement(sql,
+						Statement.RETURN_GENERATED_KEYS);
+			}//final do if
+			//Atribuindo os valores
+			stmt.setString(1, descricao);
+			stmt.setDouble(2, preco);
+			stmt.setInt(3, saldo);
+			//se for alteração, tenho que passar o id
+			if (id>0) stmt.setInt(4, id);
+			//disparando a alteração/criação
+			int nLin = stmt.executeUpdate();
+			//se for criação, precisamos do id gerado
+			if (id==0 && nLin>0) {
+				ResultSet rs = stmt.getGeneratedKeys();
+				if (rs.next()) id = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void apagar() {
+		if (id>0) {
+			String sql = "delete from produto where id=?";
+			try {
+				PreparedStatement stmt = bd.getConnection()
+						.prepareStatement(sql);
+				stmt.setInt(1, id);
+				//Disparando o comando de delete
+				int nLin = stmt.executeUpdate();
+				System.out.println("Linhas afetadas: "+ nLin);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 	//Criando o insert de dados (C - do Crud)
 	public static Produto criarProduto(ConectorBancoDados bd) {
 		Produto ret = new Produto(bd);
